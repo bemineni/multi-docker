@@ -1,22 +1,23 @@
+language: generic
 sudo: required
 services:
     - docker
 
 before_install:
-    - docker build -t srikanthbemineni/react-test -f ./client/Dockerfile.dev ./client
+    - docker build -t bemineni/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-    - docker run -e CI=true srikanthbemineni/react-test npm test
+    - docker run -e CI=true bemineni/react-test npm test
 
 after_sucess:
-    - docker build -t srikanthbemineni/multi-client ./client
-    - docker build -t srikanthbemineni/multi-nginx ./nginx
-    - docker build -t srikanthbemineni/multi-server ./server
-    - docker build -t srikanthbemineni/multi-worker ./worker
+    - docker build -t bemineni/multi-client ./client
+    - docker build -t bemineni/multi-nginx ./nginx
+    - docker build -t bemineni/multi-server ./server
+    - docker build -t bemineni/multi-worker ./worker
     # Log in to the docker CLI
     - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
     # Take those images and push to docker-hub
-    - docker push srikanthbemineni/multi-client
-    - docker push srikanthbemineni/multi-nginx
-    - docker push srikanthbemineni/multi-server
-    - docker push srikanthbemineni/multi-worker
+    - docker push bemineni/multi-client
+    - docker push bemineni/multi-nginx
+    - docker push bemineni/multi-server
+    - docker push bemineni/multi-worker
