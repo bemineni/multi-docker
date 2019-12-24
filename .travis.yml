@@ -21,3 +21,15 @@ after_sucess:
     - docker push bemineni/multi-nginx
     - docker push bemineni/multi-server
     - docker push bemineni/multi-worker
+deploy:
+    edge: true
+    provider: elasticbeanstalk
+    region:  "us-east-2"
+    app: "multi-docker"
+    env: "MultiDocker-env"
+    bucket_name: "elasticbeanstalk-us-east-2-840819556522"
+    bucket_path: "multi-docker"
+    on: 
+        branch: master
+    access_key_id: $AWS_ACCESS_KEY
+    secret_access_key: $AWS_SECRET_KEY
